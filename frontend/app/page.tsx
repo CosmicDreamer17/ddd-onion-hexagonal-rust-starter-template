@@ -8,10 +8,12 @@ export default function RegisterPage() {
   const [username, setUsername] = useState('');
   const [user, setUser] = useState<User | null>(null);
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/register', {
+      const response = await fetch(`${API_URL}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: Math.random().toString(36).substring(2, 11), email, username }),

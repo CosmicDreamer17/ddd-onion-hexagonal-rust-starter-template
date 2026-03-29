@@ -54,6 +54,7 @@ dependencies = [
  "async-trait",
  "domain",
  "serde",
+ "tracing",
 ]
 
 [[package]]
@@ -789,6 +790,7 @@ dependencies = [
  "domain",
  "sqlx",
  "tokio",
+ "tracing",
 ]
 
 [[package]]

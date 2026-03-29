@@ -1,6 +1,7 @@
 use async_trait::async_trait;
 use domain::{DomainError, Email, User, UserId, Username};
 use serde::{Deserialize, Serialize};
+use tracing::instrument;
 
 #[async_trait]
 pub trait UserRepository: Send + Sync {
@@ -20,6 +21,7 @@ pub struct CreateUserUseCase<R: UserRepository> {
 }
 
 impl<R: UserRepository> CreateUserUseCase<R> {
+    #[instrument(skip(self, cmd), fields(email = %cmd.email))]
     pub async fn execute(&self, cmd: CreateUserCommand) -> Result<User, DomainError> {
         let user = User {
             id: UserId(cmd.id),

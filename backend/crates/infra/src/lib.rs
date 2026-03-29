@@ -3,6 +3,7 @@ use async_trait::async_trait;
 use domain::{DomainError, Email, User, UserId, Username};
 use sqlx::sqlite::{SqliteConnectOptions, SqliteJournalMode, SqlitePool, SqlitePoolOptions};
 use std::str::FromStr;
+use tracing::instrument;
 
 pub struct SqliteUserRepository {
     pub pool: SqlitePool,
@@ -10,6 +11,7 @@ pub struct SqliteUserRepository {
 
 #[async_trait]
 impl UserRepository for SqliteUserRepository {
+    #[instrument(skip(self, user), fields(user_id = %user.id.0))]
     async fn create(&self, user: User) -> Result<(), DomainError> {
         sqlx::query("INSERT INTO users (id, email, username) VALUES (?, ?, ?)")
             .bind(user.id.0)
@@ -21,6 +23,7 @@ impl UserRepository for SqliteUserRepository {
         Ok(())
     }
 
+    #[instrument(skip(self, id), fields(user_id = %id.0))]
     async fn find_by_id(&self, id: &UserId) -> Result<Option<User>, DomainError> {
         let row = sqlx::query_as::<_, (String, String, String)>(
             "SELECT id, email, username FROM users WHERE id = ?",
@@ -45,16 +48,16 @@ pub async fn init_db(database_url: &str) -> Result<SqlitePool, DomainError> {
         .journal_mode(SqliteJournalMode::Wal);
 
     let pool = SqlitePoolOptions::new()
+        .max_connections(5)
         .connect_with(options)
         .await
         .map_err(|e| DomainError::DatabaseError(e.to_string()))?;
 
-    sqlx::query(
-        "CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, email TEXT NOT NULL, username TEXT NOT NULL)"
-    )
-    .execute(&pool)
-    .await
-    .map_err(|e| DomainError::DatabaseError(e.to_string()))?;
+    // Run migrations from the migrations/ directory in the backend root
+    sqlx::migrate!("../../migrations")
+        .run(&pool)
+        .await
+        .map_err(|e| DomainError::DatabaseError(e.to_string()))?;
 
     Ok(pool)
 }
