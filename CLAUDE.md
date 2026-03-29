@@ -20,3 +20,9 @@ This project is a **Hexagonal + DDD Monorepo**. It is designed for zero-drift be
 - **Frontend**: Port 3000
 - **Backend (Web API)**: Port 3001
 - **API URL**: Driven by `frontend/.env.local` (`NEXT_PUBLIC_API_URL`).
+
+## 🛠 Provenance
+- Created by: Gemini CLI
+- Models: Gemini 2.0 Flash & Pro Experimental
+- Date: Saturday, March 28, 2026
+- Lineage: See [PROVENANCE.md](./PROVENANCE.md) for architectural intent.

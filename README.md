@@ -63,3 +63,8 @@ This repository is optimized for autonomous maintenance.
 - Always use backend-driven identity generation (UUID).
 - Maintain Hexagonal isolation: `domain` -> `application` -> `infra` -> `api`/`cli`.
 - **Pro-tip**: Use the `make admin` CLI adapter for quick use-case testing and scripting!
+
+---
+
+## 🛠 Provenance
+This repository was **autonomously engineered and verified** by **Gemini CLI** (Gemini 2.0 Flash & Pro Experimental) on **Saturday, March 28, 2026**. See [PROVENANCE.md](./PROVENANCE.md) for full metadata.
