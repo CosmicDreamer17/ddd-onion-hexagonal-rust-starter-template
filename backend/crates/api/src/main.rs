@@ -1,7 +1,7 @@
 use application::{CreateUserCommand, CreateUserUseCase};
 use axum::{
     http::{Method, StatusCode},
-    routing::post,
+    routing::{get, post},
     Extension, Json, Router,
 };
 use domain::{DomainError, User};
@@ -35,14 +35,15 @@ async fn main() {
     let repository = SqliteUserRepository { pool };
     let use_case = Arc::new(CreateUserUseCase { repository });
 
-    // 4. Configure CORS (Critical for Next.js frontend to hit backend)
+    // 4. Configure CORS
     let cors = CorsLayer::new()
-        .allow_origin(Any) // For production, specify your frontend URL
+        .allow_origin(Any)
         .allow_methods([Method::GET, Method::POST, Method::OPTIONS])
         .allow_headers(Any);
 
     // 5. Build Router
     let app = Router::new()
+        .route("/health", get(health_handler))
         .route("/register", post(register_handler))
         .layer(cors)
         .layer(TraceLayer::new_for_http())
@@ -54,6 +55,10 @@ async fn main() {
 
     let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
     axum::serve(listener, app).await.unwrap();
+}
+
+async fn health_handler() -> StatusCode {
+    StatusCode::OK
 }
 
 async fn register_handler(

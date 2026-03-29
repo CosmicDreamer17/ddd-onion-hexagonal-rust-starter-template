@@ -5,6 +5,5 @@ migrate:
 	cd backend && cargo sqlx migrate run
 
 dev:
-	@-pkill -f "target/debug/api" || true
-	@-pkill -f "next-dev" || true
+	@lsof -ti:3000,3001 | xargs kill -9 || true
 	(cd backend && cargo run -p api) & (cd frontend && npm run dev)

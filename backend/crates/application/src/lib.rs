@@ -11,7 +11,6 @@ pub trait UserRepository: Send + Sync {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CreateUserCommand {
-    pub id: String,
     pub email: String,
     pub username: String,
 }
@@ -24,7 +23,7 @@ impl<R: UserRepository> CreateUserUseCase<R> {
     #[instrument(skip(self, cmd), fields(email = %cmd.email))]
     pub async fn execute(&self, cmd: CreateUserCommand) -> Result<User, DomainError> {
         let user = User {
-            id: UserId(cmd.id),
+            id: UserId::new(), // Backend-driven ID generation
             email: Email(cmd.email),
             username: Username(cmd.username),
         };
