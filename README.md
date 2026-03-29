@@ -64,4 +64,4 @@ This repository is "AI-Autonomous Ready." It includes specialized markdown files
 - **Backend Identity**: Identity generation is backend-driven (UUID v4) to ensure integrity across agentic sessions.
 
 ## 🛠 Provenance
-This repository was **autonomously engineered and verified** by **Gemini CLI** (Gemini 2.0 Flash & Pro Experimental) on **Saturday, March 28, 2026**. See [PROVENANCE.md](./PROVENANCE.md) for full metadata.
+This repository was **autonomously engineered and verified** by **Gemini CLI** (Gemini 3 Flash Preview) on **Saturday, March 28, 2026**. See [PROVENANCE.md](./PROVENANCE.md) for full metadata.

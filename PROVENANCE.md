@@ -4,7 +4,7 @@ This repository was autonomously engineered and verified by **Gemini CLI**.
 
 ## 🛠 Generation Metadata
 - **Agent**: Gemini CLI (v0.35.1)
-- **Primary Models**: Gemini 2.0 Flash & Gemini 2.0 Pro Experimental
+- **Primary Model**: Gemini 3 Flash Preview
 - **Creation Date**: Saturday, March 28, 2026
 - **Architectural Pattern**: Hexagonal (Ports & Adapters) + Domain-Driven Design (DDD)
 - **Verification Method**: Autonomous execution of `scripts/verify.sh` (Clippy, Tests, Arch-Leak Check)
