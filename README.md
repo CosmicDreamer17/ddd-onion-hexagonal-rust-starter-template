@@ -60,7 +60,7 @@ Triggers `ts-rs` export and moves bindings to the frontend.
 ## 🤖 Agentic Maintenance
 This repository is "AI-Autonomous Ready." It includes specialized markdown files in the root:
 - **`AI.md` (Master)**: The single source of truth for architectural mandates and quality-of-life instructions for all AI agents (Gemini, Claude, Cursor/OpenAI).
-- **Tool Entry Points**: `GEMINI.md`, `CLAUDE.md`, and `.cursorrules` provide tool-specific onboarding while referencing the master rules.
+- **Tool Entry Points**: `GEMINI.md`, `CLAUDE.md`, `CODEX.md`, and `.cursorrules` provide tool-specific onboarding while referencing the master rules.
 - **Backend Identity**: Identity generation is backend-driven (UUID v4) to ensure integrity across agentic sessions.
 
 ## 🛠 Provenance
