@@ -1,0 +1,11 @@
+name: Feature Request
+description: Request a new feature
+body:
+- type: textarea
+  id: domain-requirements
+  attributes:
+    label: Domain Requirements
+    description: What is the core business logic or domain entity change?
+    placeholder: e.g., A User must have a unique email address.
+  validations:
+    required: true
