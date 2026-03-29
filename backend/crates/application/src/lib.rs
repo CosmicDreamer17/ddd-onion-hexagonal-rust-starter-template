@@ -1,6 +1,6 @@
-use domain::{User, UserId, Email, Username, DomainError};
 use async_trait::async_trait;
-use serde::{Serialize, Deserialize};
+use domain::{DomainError, Email, User, UserId, Username};
+use serde::{Deserialize, Serialize};
 
 #[async_trait]
 pub trait UserRepository: Send + Sync {

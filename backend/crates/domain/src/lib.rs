@@ -1,4 +1,4 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use thiserror::Error;
 use ts_rs::TS;
 
@@ -36,7 +36,6 @@ pub enum DomainError {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     #[test]
     fn test_types_export() {
         // This test exists to trigger ts-rs export
