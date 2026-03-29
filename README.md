@@ -1,50 +1,41 @@
 # AI-Autonomous Rust + Next.js Monorepo Starter
 
-A high-performance, strictly bounded Monorepo template optimized for AI-agent maintenance. Built with a Hexagonal/DDD Rust backend and a Next.js frontend.
+A high-performance, strictly bounded Monorepo template optimized for AI-agent maintenance.
 
-## 🏗 Architecture
+## 🏗 Architecture (Hexagonal + DDD)
 
-### Backend (Rust)
-Located in `/backend`, organized as a Cargo Workspace:
-- **`crates/domain`**: Pure business logic. Zero dependencies. Use Newtypes for IDs.
+### Backend (Rust Workspace in `/backend`)
+- **`crates/domain`**: Pure business logic. Zero dependencies.
 - **`crates/application`**: Ports (Traits) and Use Cases.
-- **`crates/infra`**: SQLx + SQLite adapters. Handles migrations and physical storage.
-- **`crates/api`**: Axum web server, DTOs, and CORS configuration.
+- **`crates/infra`**: SQLx + SQLite adapters + Migrations (`/migrations`).
+- **`crates/api`**: Axum server + CORS + Tracing.
 
-### Frontend (Next.js)
-Located in `/frontend`:
-- **App Router**: Modern Next.js patterns.
-- **Tailwind CSS**: Utility-first styling.
-- **Zero-Drift Types**: TypeScript bindings are automatically generated from Rust structs via `ts-rs`.
+### Frontend (Next.js App in `/frontend`)
+- **Types**: Zero-drift bindings generated via `ts-rs` into `/frontend/types/generated/`.
 
-## 🚀 Quick Start
+## 🚀 Operations
 
-### Prerequisites
-- Rust (latest stable)
-- Node.js & npm
-- SQLx CLI (optional, for manual migrations)
+### 1. Development (Local)
+```bash
+make dev
+```
+- **Frontend (Next.js)**: [http://localhost:3000](http://localhost:3000)
+- **Backend (Axum)**: [http://localhost:3001](http://localhost:3001)
 
-### Setup & Run
-1. **Install dependencies**:
-   ```bash
-   cd frontend && npm install
-   ```
-2. **Run Development Mode**:
-   ```bash
-   make dev
-   ```
-   This starts the Axum backend (Port 3000) and Next.js frontend (Port 3001) concurrently.
+### 2. Verification (CI/CD)
+```bash
+make verify
+```
+Runs architectural leak checks, formatting, clippy, and workspace tests.
 
-### 🛠 Tooling & Scripts
-- `make verify`: Runs architectural checks, clippy, and tests.
-- `make dev`: Concurrently runs backend and frontend with auto-cleanup.
-- `./scripts/export-types.sh`: Manual trigger to sync Rust types to Frontend.
+### 3. Sync Types
+```bash
+./scripts/export-types.sh
+```
+Triggers `ts-rs` export and moves bindings to the frontend.
 
-## 🤖 AI-Agent Protocols
-This repository contains specific instructions for AI agents in `GEMINI.md` and `CLAUDE.md`. 
-- **Domain Purity**: Never import `infra` into `domain`.
-- **Type Safety**: Always use Newtypes for IDs; never raw Strings.
-- **Verification**: `scripts/verify.sh` is the source of truth for completion.
-
-## 📡 API Endpoints
-- `POST /register`: Registers a new user. Expects `CreateUserCommand` JSON.
+## 🤖 Instructions for AI Agents
+This repository is optimized for autonomous maintenance. 
+- Refer to `GEMINI.md` or `CLAUDE.md` for specific architectural constraints.
+- Always use backend-driven identity generation (UUID).
+- Maintain Hexagonal isolation: `domain` -> `application` -> `infra` -> `api`.
