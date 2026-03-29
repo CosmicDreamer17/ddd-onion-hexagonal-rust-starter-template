@@ -54,6 +54,7 @@ dependencies = [
  "async-trait",
  "domain",
  "serde",
+ "tokio",
  "tracing",
 ]
 

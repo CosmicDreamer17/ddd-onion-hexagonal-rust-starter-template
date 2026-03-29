@@ -8,6 +8,7 @@ use domain::{DomainError, User};
 use infra::{init_db, SqliteUserRepository};
 use std::net::SocketAddr;
 use std::sync::Arc;
+use tokio::signal;
 use tower_http::cors::{Any, CorsLayer};
 use tower_http::trace::TraceLayer;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
@@ -49,12 +50,41 @@ async fn main() {
         .layer(TraceLayer::new_for_http())
         .layer(Extension(use_case));
 
-    // 6. Start Server
+    // 6. Start Server with Graceful Shutdown
     let addr = SocketAddr::from(([127, 0, 0, 1], server_port.parse().unwrap_or(3000)));
     tracing::info!("Server listening on {}...", addr);
 
     let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
-    axum::serve(listener, app).await.unwrap();
+    axum::serve(listener, app)
+        .with_graceful_shutdown(shutdown_signal())
+        .await
+        .unwrap();
+}
+
+async fn shutdown_signal() {
+    let ctrl_c = async {
+        signal::ctrl_c()
+            .await
+            .expect("failed to install Ctrl+C handler");
+    };
+
+    #[cfg(unix)]
+    let terminate = async {
+        signal::unix::signal(signal::unix::SignalKind::terminate())
+            .expect("failed to install signal handler")
+            .recv()
+            .await;
+    };
+
+    #[cfg(not(unix))]
+    let terminate = std::future::pending::<()>();
+
+    tokio::select! {
+        _ = ctrl_c => {},
+        _ = terminate => {},
+    }
+
+    tracing::info!("Shutdown signal received, starting graceful shutdown...");
 }
 
 async fn health_handler() -> StatusCode {
