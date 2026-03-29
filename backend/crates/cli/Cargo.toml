@@ -1,0 +1,16 @@
+[package]
+name = "cli"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+domain = { path = "../domain" }
+application = { path = "../application" }
+infra = { path = "../infra" }
+clap = { version = "4.4", features = ["derive"] }
+tokio = { version = "1", features = ["full"] }
+dotenvy = "0.15"
+
+[[bin]]
+name = "ddd-admin"
+path = "src/main.rs"
