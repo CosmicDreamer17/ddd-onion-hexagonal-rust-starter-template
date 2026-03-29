@@ -57,14 +57,11 @@ Runs architectural leak checks, formatting, clippy, and workspace tests.
 ```
 Triggers `ts-rs` export and moves bindings to the frontend.
 
-## 🤖 Instructions for AI Agents
-This repository is optimized for autonomous maintenance. 
-- Refer to `GEMINI.md` or `CLAUDE.md` for specific architectural constraints.
-- Always use backend-driven identity generation (UUID).
-- Maintain Hexagonal isolation: `domain` -> `application` -> `infra` -> `api`/`cli`.
-- **Pro-tip**: Use the `make admin` CLI adapter for quick use-case testing and scripting!
-
----
+## 🤖 Agentic Maintenance
+This repository is "AI-Autonomous Ready." It includes specialized markdown files in the root:
+- **`AI.md` (Master)**: The single source of truth for architectural mandates and quality-of-life instructions for all AI agents (Gemini, Claude, Cursor/OpenAI).
+- **Tool Entry Points**: `GEMINI.md`, `CLAUDE.md`, and `.cursorrules` provide tool-specific onboarding while referencing the master rules.
+- **Backend Identity**: Identity generation is backend-driven (UUID v4) to ensure integrity across agentic sessions.
 
 ## 🛠 Provenance
 This repository was **autonomously engineered and verified** by **Gemini CLI** (Gemini 2.0 Flash & Pro Experimental) on **Saturday, March 28, 2026**. See [PROVENANCE.md](./PROVENANCE.md) for full metadata.

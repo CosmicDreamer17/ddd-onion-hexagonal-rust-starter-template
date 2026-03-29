@@ -1,0 +1,10 @@
+# Cursor / OpenAI Onboarding
+
+**CRITICAL**: Read [AI.md](./AI.md) for the full architectural mandates and identity rules before modifying this repository.
+
+## 🛠 Project Context
+- **Architecture**: Hexagonal + DDD
+- **Rules of the Road**: 
+  - Never use raw Strings for IDs (use Newtypes in `domain`).
+  - Domain layer must remain pure (no infra imports).
+- **Verification**: Run `make verify` in the terminal.
