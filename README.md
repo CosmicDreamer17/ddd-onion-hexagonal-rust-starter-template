@@ -2,6 +2,21 @@
 
 A high-performance, strictly bounded Monorepo template optimized for AI-agent maintenance.
 
+## 🚀 Quick Start (Create Your Own)
+
+### Path A: Using GitHub CLI (Recommended)
+Bootstrap a new repo from this template:
+```bash
+gh repo create my-new-app --template CosmicDreamer17/ddd-onion-hexagonal-rust-starter-template --public --clone
+```
+
+### Path B: Using `degit` (No GitHub CLI)
+```bash
+npx degit CosmicDreamer17/ddd-onion-hexagonal-rust-starter-template my-new-app
+```
+
+---
+
 ## 🏗 Architecture (Hexagonal + DDD)
 
 ### Backend (Rust Workspace in `/backend`)
@@ -13,7 +28,7 @@ A high-performance, strictly bounded Monorepo template optimized for AI-agent ma
 ### Frontend (Next.js App in `/frontend`)
 - **Types**: Zero-drift bindings generated via `ts-rs` into `/frontend/types/generated/`.
 
-## 🚀 Operations
+## 📡 Operations
 
 ### 1. Development (Local)
 ```bash
