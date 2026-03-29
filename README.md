@@ -15,6 +15,8 @@ gh repo create my-new-app --template CosmicDreamer17/ddd-onion-hexagonal-rust-st
 npx degit CosmicDreamer17/ddd-onion-hexagonal-rust-starter-template my-new-app
 ```
 
+> **🤖 Note for AI Agents**: If you are bootstrapping this project, refer to the [Agentic Bootstrap](./AI.md#🚀-agentic-bootstrap-creating-a-new-project) section in `AI.md` for mandatory initialization steps.
+
 ---
 
 ## 🏗 Architecture (Hexagonal + DDD)

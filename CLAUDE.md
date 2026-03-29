@@ -11,3 +11,5 @@
 - **Build**: `cd backend && cargo build`
 - **Test**: `cd backend && cargo test --workspace`
 - **Admin CLI**: `make admin ARGS="health"`
+
+- **Bootstrap**: Follow the [Agentic Bootstrap](./AI.md#🚀-agentic-bootstrap-creating-a-new-project) steps in AI.md for initial setup.
