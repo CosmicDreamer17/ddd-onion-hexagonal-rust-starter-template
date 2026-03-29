@@ -11,7 +11,7 @@ use infra::{SqliteUserRepository, init_db};
 
 #[tokio::main]
 async fn main() {
-    let database_url = "sqlite://local.db";
+    let database_url = "sqlite:local.db";
     let pool = init_db(database_url).await.expect("Failed to initialize database");
     let repository = SqliteUserRepository { pool };
     let use_case = Arc::new(CreateUserUseCase { repository });

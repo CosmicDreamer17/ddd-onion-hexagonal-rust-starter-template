@@ -1,7 +1,8 @@
 use application::UserRepository;
 use domain::{User, UserId, Email, Username, DomainError};
 use async_trait::async_trait;
-use sqlx::sqlite::SqlitePool;
+use sqlx::sqlite::{SqlitePool, SqliteConnectOptions, SqliteJournalMode, SqlitePoolOptions};
+use std::str::FromStr;
 
 pub struct SqliteUserRepository {
     pub pool: SqlitePool,
@@ -40,7 +41,13 @@ impl UserRepository for SqliteUserRepository {
 }
 
 pub async fn init_db(database_url: &str) -> Result<SqlitePool, DomainError> {
-    let pool = SqlitePool::connect(database_url)
+    let options = SqliteConnectOptions::from_str(database_url)
+        .map_err(|e| DomainError::DatabaseError(e.to_string()))?
+        .create_if_missing(true)
+        .journal_mode(SqliteJournalMode::Wal);
+
+    let pool = SqlitePoolOptions::new()
+        .connect_with(options)
         .await
         .map_err(|e| DomainError::DatabaseError(e.to_string()))?;
     
