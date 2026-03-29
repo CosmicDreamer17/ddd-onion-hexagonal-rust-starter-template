@@ -1,6 +1,8 @@
 [package]
 name = "api"
 version = "0.1.0"
+license = "MIT"
+repository = "https://github.com/CosmicDreamer17/ddd-onion-hexagonal-rust-starter-template"
 edition = "2021"
 
 [dependencies]

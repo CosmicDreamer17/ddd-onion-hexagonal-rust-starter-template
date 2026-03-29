@@ -19,3 +19,7 @@ This file is the single source of truth for all AI agents (Gemini, Claude, GPT/C
 - **Test**: `make verify`
 - **Migrations**: `cd backend && cargo sqlx migrate run`
 - **Dev Mode**: `make dev` (Starts all services with auto-cleanup)
+
+## ⚖️ Licensing
+- This project is licensed under the **MIT License**.
+- All new crates must include `license = "MIT"` in their `Cargo.toml`.
