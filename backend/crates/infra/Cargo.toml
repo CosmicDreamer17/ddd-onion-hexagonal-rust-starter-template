@@ -1,0 +1,11 @@
+[package]
+name = "infra"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+domain = { path = "../domain" }
+application = { path = "../application" }
+sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "sqlite", "macros"] }
+tokio = { version = "1", features = ["full"] }
+async-trait = "0.1"

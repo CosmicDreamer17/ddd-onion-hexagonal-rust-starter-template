@@ -1,2 +1,16 @@
 .gemini/
 gha-creds-*.json
+
+# Rust
+target/
+
+# Node.js
+node_modules/
+.next/
+out/
+build/
+
+# Database
+*.db
+*.db-shm
+*.db-wal
