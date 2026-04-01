@@ -1,0 +1,14 @@
+# Cursor / OpenAI Onboarding
+
+**CRITICAL**: Read [AI.md](./AI.md) for the full architectural mandates and identity rules before modifying this repository.
+
+## 🛠 Project Context
+- **Architecture**: Hexagonal + DDD
+- **Rules of the Road**:
+  - Never use raw Strings for IDs (use Newtypes in `domain` with private inner fields).
+  - Domain layer must remain pure (no infra imports).
+  - Value objects must validate invariants in `new()` constructors. Use `from_persisted()` only for reconstitution from storage.
+  - Use domain vocabulary for errors (e.g., `RepositoryError`, not `DatabaseError`).
+  - Use native async traits, not the `async-trait` crate.
+  - Use `axum::extract::State`, not `Extension`.
+- **Verification**: Run `make verify` in the terminal.

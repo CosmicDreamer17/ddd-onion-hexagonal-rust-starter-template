@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify:
+    name: Architectural & Quality Gates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libsqlite3-dev pkg-config libssl-dev
+
+      - name: 1. Architectural Leak Check
+        run: ./scripts/verify.sh
+
+      - name: 2. Cargo Format
+        run: cd backend && cargo fmt --all -- --check
+
+      - name: 3. Cargo Clippy
+        run: cd backend && cargo clippy --all-targets --all-features -- -D warnings
+
+      - name: 4. Workspace Tests
+        run: cd backend && cargo test --workspace
+
+  security:
+    name: Security & License Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: EmbarkStudios/cargo-deny-action@v2
+        with:
+          command: check
+          arguments: --manifest-path backend/Cargo.toml

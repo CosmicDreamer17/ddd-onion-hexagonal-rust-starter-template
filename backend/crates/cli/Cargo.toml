@@ -1,0 +1,18 @@
+[package]
+name = "cli"
+version = "0.1.0"
+license = "MIT"
+repository = "https://github.com/CosmicDreamer17/ddd-onion-hexagonal-rust-starter-template"
+edition = "2021"
+
+[dependencies]
+domain = { path = "../domain" }
+application = { path = "../application" }
+infra = { path = "../infra" }
+clap = { workspace = true }
+tokio = { workspace = true }
+dotenvy = { workspace = true }
+
+[[bin]]
+name = "ddd-admin"
+path = "src/main.rs"
